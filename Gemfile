@@ -5,8 +5,7 @@ ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.0.6', '>= 6.0.6.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -21,6 +20,22 @@ gem 'puma', '~> 4.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+
+gem 'sqlite3', '~> 1.4'
+
+# Testing
+gem 'rspec-rails', '~> 4.0.0'
+gem 'factory_bot_rails'
+
+# Linting
+gem 'rubocop', require: false
+gem 'rubocop-rails', require: false
+
+# Redis
+gem 'redis'
+
+# Schema management
+gem 'ridgepole'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
