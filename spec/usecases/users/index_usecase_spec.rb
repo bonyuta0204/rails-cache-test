@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Users::IndexUsecase do
   let(:usecase) { described_class.new }
 

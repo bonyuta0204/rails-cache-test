@@ -1,5 +1,8 @@
 require:
   - rubocop-rails
+  - rubocop-factory_bot
+  - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   NewCops: enable
@@ -10,27 +13,4 @@ AllCops:
 
 Rails:
   Enabled: true
-require:
-  - rubocop-rails
 
-AllCops:
-  NewCops: enable
-  Exclude:
-    - 'db/schema.rb'
-    - 'bin/*'
-    - 'node_modules/**/*'
-
-Rails:
-  Enabled: true
-require:
-  - rubocop-rails
-
-AllCops:
-  NewCops: enable
-  Exclude:
-    - 'db/schema.rb'
-    - 'bin/*'
-    - 'node_modules/**/*'
-
-Rails:
-  Enabled: true

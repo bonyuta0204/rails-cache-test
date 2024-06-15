@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lib/generators/usecase/usecase_generator.rb
 require 'rails/generators'
 
