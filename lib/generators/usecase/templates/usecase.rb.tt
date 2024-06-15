@@ -1,0 +1,12 @@
+# app/usecases/<%= class_name %>Usecase.rb
+module <%= class_path.map(&:camelize).join('::') %>
+  class <%= file_name.camelize %>Usecase
+    def initialize
+      # Initialization code here
+    end
+
+    def call
+      # Execution code here
+    end
+  end
+end

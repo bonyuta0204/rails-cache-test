@@ -1,0 +1,14 @@
+# spec/usecases/<%= file_name %>_usecase_spec.rb
+
+RSpec.describe <%= class_path.map(&:camelize).join('::') %>::<%= file_name.camelize %>Usecase  do
+  let(:usecase) {described_class.new}
+
+  describe "#call" do
+    subject {usecase.call}
+
+    it do
+        # TODO
+    end
+  end
+end
+
