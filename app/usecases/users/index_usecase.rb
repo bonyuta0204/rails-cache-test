@@ -6,6 +6,7 @@ module Users
   class IndexUsecase
     def call
       users = User.all
+      
       [:ok, users]
     end
   end

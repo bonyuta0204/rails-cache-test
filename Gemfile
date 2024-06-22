@@ -26,6 +26,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'mysql2'
 
+gem 'pry'
+gem 'pry-byebug'
+
 # Testing
 gem 'factory_bot_rails'
 gem 'rspec-rails', '~> 4.0.0'

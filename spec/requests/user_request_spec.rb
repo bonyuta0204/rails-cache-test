@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe 'Users' do
-  describe 'GET /index' do
+  describe 'GET /users' do
     it 'returns http success' do
-      get '/user/index'
+      get '/users'
       expect(response).to have_http_status(:success)
     end
   end
