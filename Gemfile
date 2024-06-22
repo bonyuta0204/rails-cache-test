@@ -39,6 +39,7 @@ gem 'rubocop-rspec_rails', require: false
 
 # Redis
 gem 'redis'
+gem 'resque'
 
 # Schema management
 gem 'ridgepole'
