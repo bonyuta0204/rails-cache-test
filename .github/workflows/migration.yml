@@ -52,8 +52,11 @@ jobs:
         run: |
           git checkout ${{github.head_ref}}
           result=`bundle exec rake ridgepole:export_plan`
-          # set-outputに複数行を渡す場合はエスケープが必要
-          echo "result=${result}" >> $GITHUB_ENV
+          {
+            echo 'result<<EOF'
+            ${result}
+            echo EOF
+          } >> "$GITHUB_ENV"
 
 
       - name: Notify MySQL DDL
