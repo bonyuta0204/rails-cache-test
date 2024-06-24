@@ -54,7 +54,7 @@ jobs:
           result=`bundle exec rake ridgepole:export_plan`
           {
             echo 'result<<EOF'
-            ${result}
+            echo ${result}
             echo EOF
           } >> "$GITHUB_ENV"
 
