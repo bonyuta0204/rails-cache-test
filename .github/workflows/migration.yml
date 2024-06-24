@@ -1,0 +1,67 @@
+name: Notify MySQL DDL
+on: pull_request
+jobs:
+  build-and-notify:
+    name: build-and-notify
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    services:
+      db:
+        image: mysql:8.3
+        options: --health-cmd "mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_DATABASE: app_development
+    
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Create database
+        run: bin/rails db:create
+
+      # 起点になったブランチの最新のコミットにcheckoutしてdbのschemaを再現する
+      - name: Reproduce db schema on base branch
+        run: |
+          # base_refは起点になったブランチ名、head_refはプルリクのブランチ名
+          git fetch origin ${{github.base_ref}}
+          git fetch origin ${{github.head_ref}}
+
+          last_commit_hash_on_base_branch=`git rev-list origin/${{github.base_ref}} -n 1`
+          git checkout $last_commit_hash_on_base_branch
+          
+          # base_refとhead_refで必要なGemが異なることがありえるので依存解決をしておきます
+          bundle config --local deployment true
+          bundle config --local jobs 16
+          bundle check || bundle install
+
+          bundle exec rake ridgepole:apply
+
+      # PRのブランチに切り替えて発行されうるDDLを出力する
+      - name: Detect MySQL DDL
+        id: mysql_ddl
+        run: |
+          git checkout ${{github.head_ref}}
+          result=`bundle exec rake ridgepole:export_plan`
+          # set-outputに複数行を渡す場合はエスケープが必要
+          echo "result=${result}" >> $GITHUB_ENV
+
+
+      - name: Notify MySQL DDL
+        if:  ${{ env.result != '' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            origin/${{github.base_ref}} ブランチのスキーマとの差分
+            ```sql
+            ${{ env.result }}
+            ```
